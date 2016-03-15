@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en" data-ng-app="RTrack">
+<head>
+	<meta charset="UTF-8">
+	<title>RTrack</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-select/0.14.9/select.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+    <style>
+    	body {
+    		height: 75px;
+    	}
+		.table {
+			width: 500px;
+			font-size: 13px;
+		}
+		.btn {
+			padding: 0 10px;
+		}
+		.form-control {
+			height: 24px;
+			font-size: 13px;
+		}
+		.dropdown-menu {
+			font-size: 13px;
+		}
+		.ui-select-choices-row>a {
+			padding: 0 20px;
+		}
+		.fa {
+			font-size: 13px;
+		}
+    </style>
+</head>
+<body>
+<table class="table table-condensed" style="width: 500px;" data-ng-controller="MainController as vm">
+    <colgroup>
+        <col style="width:30%;">
+        <col style="width:30%;">
+        <col style="width:10%;">
+        <col style="width:20%;">
+    </colgroup>
+    <tbody>
+    <tr>
+        <td>
+            <ui-select ng-model="vm.project">
+                <ui-select-match>
+                    <span ng-bind="$select.selected.name"></span>
+                </ui-select-match>
+                <ui-select-choices repeat="project in vm.projects" refresh="vm.searchProject($select.search)" refresh-delay="100">
+                    <span ng-bind="project.name"></span>
+                </ui-select-choices>
+            </ui-select>
+        </td>
+        <td>
+            <ui-select ng-model="vm.task">
+                <ui-select-match>
+                    <span ng-bind="$select.selected.name"></span>
+                </ui-select-match>
+                <ui-select-choices repeat="task in vm.tasks" refresh="vm.searchTask($select.search)" refresh-delay="100">
+                    <span ng-bind="task.name"></span>
+                </ui-select-choices>
+            </ui-select>
+        </td>
+        <td></td>
+        <td>
+            <button class="btn btn-success" data-ng-click="vm.addTimeLog()">
+                <i class="fa fa-play"></i>
+            </button>
+        </td>
+    </tr>
+    <tr data-ng-repeat="timeLog in vm.timeLogs">
+        <td>
+            {{timeLog.project_name}}
+        </td>
+        <td>
+            {{timeLog.task_name}}
+        </td>
+        <td style="text-align: center; font-weight: bold;">
+            {{timeLog.timer}}
+        </td>
+        <td>
+            <button class="btn btn-danger" data-ng-click="vm.stopLog(timeLog)" data-ng-show="timeLog.is_running">
+                <i class="fa fa-stop"></i>
+            </button>
+            <button class="btn btn-info" data-ng-click="vm.retryLog($index, timeLog)" data-ng-show="!timeLog.is_running">
+                <i class="fa fa-refresh"></i>
+            </button>
+            <button class="btn btn-default" data-ng-click="vm.removeLog($index, timeLog)">
+                <i class="fa fa-trash" style="color: #dddddd;"></i>
+            </button>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.6.1/lodash.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0/angular.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0/angular-sanitize.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/restangular/1.5.2/restangular.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-select/0.14.9/select.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment-duration-format/1.3.0/moment-duration-format.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-moment/1.0.0-beta.4/angular-moment.min.js"></script>	
+<script type="text/javascript" src="js/app.js"></script>
+<script type="text/javascript" src="js/main.controller.js"></script>
+</body>
+</html>
