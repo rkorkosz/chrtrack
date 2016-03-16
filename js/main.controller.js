@@ -52,6 +52,7 @@
                 vm.timeLogs.splice(i, 1);
                 if (is_running) {
                     chrome.browserAction.setBadgeText({text:"00:00"});
+                    chrome.browserAction.setTitle({title: "RTrack"});
                 }
             });
         }
@@ -70,9 +71,10 @@
                 time = moment().diff(moment(log.start)) + log.duration;
             duration = moment.duration(time, 'milliseconds');
             log.timer = formatDuration(duration);
-            chrome.browserAction.setBadgeBackgroundColor({color: [208, 0, 24, 255]})
+            chrome.browserAction.setBadgeBackgroundColor({color: [208, 0, 24, 255]});
             chrome.browserAction.setBadgeText({text:log.timer});
             chrome.runtime.sendMessage({log: log});
+            chrome.browserAction.setTitle({title: [log.project_name, log.task_name].join(" - ")});
             log.ticker = $interval(function() {
                 duration = moment.duration(duration.asMilliseconds() + interval, 'milliseconds');
                 log.duration = duration.asMilliseconds();

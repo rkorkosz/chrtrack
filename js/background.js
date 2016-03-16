@@ -7,6 +7,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
         clearInterval(interval);
         interval = 0;
         chrome.browserAction.setBadgeText({text: "00:00"});
+        chrome.browserAction.setTitle({title: "RTrack"});
     }
 });
 
