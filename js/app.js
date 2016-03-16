@@ -16,7 +16,8 @@
      */
     function config($httpProvider, RestangularProvider) {
         $httpProvider.interceptors.push('csrfInterceptor');
-        RestangularProvider.setBaseUrl('http://rtrack.localhost:5000/api');
+        //RestangularProvider.setBaseUrl('http://rtrack.localhost:5000/api');
+        RestangularProvider.setBaseUrl('https://rtrack.herokuapp.com/api');
         RestangularProvider.setRequestSuffix('/');
         RestangularProvider.setDefaultHeaders({'Content-Type': 'application/json'});
     }
