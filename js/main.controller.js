@@ -104,7 +104,7 @@
 
         function searchProject(search) {
             if (search.length > 2) {
-                projects.getList('', {name: search}).then(function(projects) {
+                projects.customGET('', {name: search}).then(function(projects) {
                     vm.projects = projects;
                 });
             }
